@@ -1,57 +1,79 @@
 (function(){
-  const cfg = window.APP_CONFIG || {};
-  const queueKey = `${cfg.APP_ID || 'mpi'}:syncQueue`;
+  const QUEUE_KEY = 'lkpd_sync_queue_v2';
+
+  function getQueue(){
+    try{return JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');}
+    catch(e){return [];}
+  }
+
+  function setQueue(queue){
+    localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+  }
 
   function endpointReady(){
-    return Boolean(cfg.ENABLE_REMOTE_SYNC && cfg.GAS_ENDPOINT && /^https:\/\//.test(cfg.GAS_ENDPOINT));
+    return window.APP_CONFIG && window.APP_CONFIG.GAS_ENDPOINT && !window.APP_CONFIG.GAS_ENDPOINT.includes('PASTE_YOUR_DEPLOYMENT_ID');
   }
 
-  async function post(action, payload={}){
-    if(!endpointReady()) throw new Error('GAS endpoint belum dikonfigurasi');
+  async function postJSON(payload){
+    if(!window.APP_CONFIG.ENABLE_REMOTE_SYNC || !endpointReady()){
+      throw new Error('Endpoint Google Apps Script belum diatur.');
+    }
     const controller = new AbortController();
-    const timer = setTimeout(()=>controller.abort(), cfg.API_TIMEOUT_MS || 8000);
+    const timer = setTimeout(()=>controller.abort(), window.APP_CONFIG.API_TIMEOUT_MS || 8000);
     try{
-      const res = await fetch(cfg.GAS_ENDPOINT, {
+      const res = await fetch(window.APP_CONFIG.GAS_ENDPOINT, {
         method:'POST',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action, appId:cfg.APP_ID, payload}),
+        body:JSON.stringify(payload),
         signal:controller.signal
       });
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      if(!data.ok) throw new Error(data.message || 'Server menolak permintaan');
-      return data;
-    } finally { clearTimeout(timer); }
+      const text = await res.text();
+      try{return JSON.parse(text);}catch(e){return {ok: res.ok, raw: text};}
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
-  function enqueue(action,payload){
-    const q = JSON.parse(localStorage.getItem(queueKey) || '[]');
-    q.push({action,payload,queuedAt:new Date().toISOString()});
-    localStorage.setItem(queueKey,JSON.stringify(q.slice(-100)));
-  }
-
-  async function safePost(action,payload){
+  async function sendOrQueue(payload){
     try{
-      const result = await post(action,payload);
-      return {ok:true,result};
+      const result = await postJSON(payload);
+      return {ok:true, queued:false, result};
     } catch(err){
-      enqueue(action,payload);
-      return {ok:false,error:err.message};
+      const queue = getQueue();
+      queue.push(payload);
+      setQueue(queue);
+      return {ok:false, queued:true, error: String(err && err.message || err)};
     }
   }
 
   async function flushQueue(){
-    if(!endpointReady() || !navigator.onLine) return {ok:false,count:0};
-    const q = JSON.parse(localStorage.getItem(queueKey) || '[]');
-    if(!q.length) return {ok:true,count:0};
-    const pending=[]; let sent=0;
-    for(const item of q){
-      try{ await post(item.action,item.payload); sent++; }
-      catch(e){ pending.push(item); }
+    const queue = getQueue();
+    if(!queue.length) return {sent:0, failed:0};
+    const remain = [];
+    let sent = 0;
+    for(const item of queue){
+      try{
+        await postJSON(item);
+        sent++;
+      } catch(err){
+        remain.push(item);
+      }
     }
-    localStorage.setItem(queueKey,JSON.stringify(pending));
-    return {ok:pending.length===0,count:sent,pending:pending.length};
+    setQueue(remain);
+    return {sent, failed:remain.length};
   }
 
-  window.MPI_API={post,safePost,flushQueue,endpointReady};
+  window.AppAPI = {
+    getQueue,
+    flushQueue,
+    saveIdentity(data){
+      return sendOrQueue({action:'registerStudent', appId: window.APP_CONFIG.APP_ID, payload:data});
+    },
+    saveProgress(data){
+      return sendOrQueue({action:'saveProgress', appId: window.APP_CONFIG.APP_ID, payload:data});
+    },
+    saveWorksheetResult(data){
+      return sendOrQueue({action:'saveWorksheetResult', appId: window.APP_CONFIG.APP_ID, payload:data});
+    }
+  };
 })();

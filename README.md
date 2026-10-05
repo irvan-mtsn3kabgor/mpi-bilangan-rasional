@@ -1,93 +1,80 @@
-# MPI Bilangan Rasional - MTs Kelas VII
+# LKPD Interaktif Bilangan Rasional Kelas VII
 
-Paket front-end statis untuk GitHub Pages dengan backend Google Apps Script + Google Sheets.
+Package ini adalah versi penyesuaian media pembelajaran berdasarkan gambar LKPD yang Anda kirim.
 
-## Struktur
+## Penyesuaian utama
+- Materi dan urutan kegiatan disesuaikan dengan 8 halaman pada gambar:
+  1. Konsep bilangan rasional
+  2. LKPD pertemuan 1
+  3. Mengubah pecahan ke desimal dan sebaliknya
+  4. LKPD pertemuan 2
+  5. Letak bilangan rasional pada garis bilangan
+  6. LKPD pertemuan 3
+  7. Membandingkan dan mengurutkan bilangan rasional
+  8. LKPD pertemuan 4
+- Tampilan pecahan dibuat **vertikal/asli** menggunakan komponen `vfrac`, bukan garis miring.
+- Pilihan kelas tersedia dari **VII A sampai VII G**.
+- Tetap mendukung **offline-first** dan sinkronisasi ke **Google Apps Script + Google Sheet**.
+
+## Struktur folder
 
 ```text
-bilangan-rasional-mts-gorontalo/
+bilangan-rasional-mts-gorontalo-v2/
 ├── index.html
+├── README.md
 ├── assets/
-│   ├── css/style.css
+│   ├── css/
+│   │   └── style.css
 │   └── js/
 │       ├── config.js
 │       ├── api.js
 │       └── app.js
-├── gas/
-│   └── Code.gs
-└── README.md
+└── gas/
+    └── Code.gs
 ```
 
-## Data yang disimpan
+## Cara pakai lokal
+Cukup buka `index.html` di browser.
 
-Aplikasi menyimpan data ke `localStorage` lebih dulu sehingga tetap dapat digunakan saat koneksi internet tidak stabil. Jika endpoint Google Apps Script aktif, data berikut dikirim ke Google Sheets:
+## Menghubungkan ke Google Apps Script
 
-- identitas murid: nama dan kelas
-- modul terakhir/progres
-- skor kuis formatif
-- waktu pengiriman
+### 1. Siapkan Spreadsheet
+Buat spreadsheet baru.
 
-Jika pengiriman gagal, request masuk antrean lokal dan dicoba kembali saat browser mendeteksi koneksi online.
+### 2. Buat Apps Script
+- Buka `https://script.google.com`
+- Buat project baru
+- Salin isi `gas/Code.gs`
+- Isi nilai `SPREADSHEET_ID` dengan ID spreadsheet Anda
 
-## 1. Siapkan Google Sheet
+### 3. Inisialisasi sheet
+Jalankan fungsi:
 
-1. Buat Google Spreadsheet baru.
-2. Buka **Extensions > Apps Script**.
-3. Salin isi `gas/Code.gs` ke editor Apps Script.
-4. Simpan.
-5. Jalankan fungsi `setupSheets()` sekali.
-6. Beri izin yang diminta Google.
+```javascript
+setupSheets()
+```
 
-Tiga sheet akan dibuat otomatis:
-
+Sheet yang dibuat:
 - `Students`
 - `Progress`
-- `QuizResults`
+- `WorksheetResults`
 
-## 2. Deploy Google Apps Script sebagai Web App
+### 4. Deploy Web App
+- Deploy → New deployment → Web app
+- Execute as: **Me**
+- Who has access: **Anyone** (atau opsi publik yang tersedia)
+- Salin URL deployment yang berakhiran `/exec`
 
-1. Di Apps Script pilih **Deploy > New deployment**.
-2. Pilih tipe **Web app**.
-3. `Execute as`: akun pemilik script.
-4. Atur akses sesuai kebijakan madrasah/akun Google yang digunakan.
-5. Deploy dan salin URL Web App yang berakhiran `/exec`.
+### 5. Pasang endpoint
+Buka `assets/js/config.js`, lalu ganti:
 
-> Jangan menggunakan URL editor Apps Script. Yang diperlukan aplikasi adalah URL deployment Web App `/exec`.
-
-## 3. Hubungkan frontend ke Apps Script
-
-Buka `assets/js/config.js` lalu isi:
-
-```js
-GAS_ENDPOINT: "https://script.google.com/macros/s/DEPLOYMENT_ID/exec"
+```javascript
+GAS_ENDPOINT: "https://script.google.com/macros/s/PASTE_YOUR_DEPLOYMENT_ID/exec"
 ```
 
-Tidak perlu mengubah file lain.
+dengan URL web app Anda.
 
-## 4. Hosting di GitHub Pages
-
-1. Buat repository GitHub baru.
-2. Upload seluruh isi folder ini ke root repository.
-3. Commit dan push.
-4. Buka **Settings > Pages**.
-5. Pilih deployment dari branch utama dan root folder.
-6. Setelah Pages aktif, buka URL GitHub Pages yang diberikan GitHub.
-
-Tidak ada proses build, npm, framework, atau CDN eksternal.
-
-## Catatan keamanan penting
-
-Google Apps Script Web App pada contoh ini menerima data dari front-end publik. Karena GitHub Pages adalah situs statis, jangan menaruh password, API secret, token privat, atau kredensial sensitif di `config.js`.
-
-Jika aplikasi akan dipakai secara resmi dan menyimpan data murid dalam skala besar, sebaiknya tambahkan kontrol akses, kode kelas/session token, validasi input, kebijakan retensi data, dan persetujuan pengelolaan data sesuai aturan instansi.
-
-## Pengembangan lanjutan
-
-Struktur API sudah dipisahkan di `assets/js/api.js`, sehingga modul berikut dapat ditambahkan tanpa mengubah pola utama, misalnya:
-
-- leaderboard kelompok
-- rekap nilai per kelas
-- resume progres ketika murid kembali membuka aplikasi
-- dashboard guru
-- bank soal dari Google Sheet
-- pengaturan soal berdasarkan kelas atau pertemuan
+## Catatan teknis
+- Jika internet putus, data akan disimpan lokal lalu dikirim ulang saat online.
+- Klik tombol **Sinkronkan** untuk memaksa flush antrean.
+- Jawaban esai tetap tersimpan dan dikirim ke spreadsheet, tetapi penilaian kualitas jawabannya tetap dilakukan guru.

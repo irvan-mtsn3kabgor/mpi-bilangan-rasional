@@ -3,105 +3,671 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0c4b3e" />
-  <title>Bilangan Rasional | Matematika Kelas VII MTs</title>
+  <meta name="theme-color" content="#2d8f89" />
+  <title>LKPD Interaktif Bilangan Rasional Kelas VII</title>
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <strong>Bilangan Rasional</strong>
-      <span>Matematika Kelas VII MTs • Fase D</span>
+    <div class="brand">
+      <div class="logo-badge">⅞</div>
+      <div>
+        <h1>LKPD Matematika Kelas VII</h1>
+        <p>Materi: Bilangan Rasional • Interaktif • GitHub + Google Apps Script</p>
+      </div>
     </div>
-    <div class="status" id="syncStatus">Mode offline</div>
+    <div class="sync-wrap">
+      <div id="syncStatus" class="sync-status offline">Mode offline</div>
+      <button id="syncNowBtn" class="btn small ghost">Sinkronkan</button>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="hero card">
-      <div>
-        <p class="eyebrow">MPI Eksplorasi Modular</p>
-        <h1>Pecahan bisa dilihat, diubah, dan dibandingkan.</h1>
-        <p>Eksplorasi pecahan melalui model visual, pecahan senilai, perbandingan, dan kuis formatif.</p>
-      </div>
-      <div class="student-box">
-        <label>Nama murid
-          <input id="studentName" placeholder="Contoh: Siti Rahma" autocomplete="name" />
+  <main class="layout">
+    <aside class="sidebar card">
+      <section class="profile-box">
+        <h2>Identitas Murid</h2>
+        <label>
+          <span>Nama lengkap</span>
+          <input id="studentName" type="text" placeholder="Contoh: Siti Rahma" autocomplete="name" />
         </label>
-        <label>Kelas
-          <input id="studentClass" placeholder="Contoh: VII A" />
+        <label>
+          <span>Kelas</span>
+          <select id="studentClass">
+            <option value="">Pilih kelas</option>
+            <option>VII A</option>
+            <option>VII B</option>
+            <option>VII C</option>
+            <option>VII D</option>
+            <option>VII E</option>
+            <option>VII F</option>
+            <option>VII G</option>
+          </select>
         </label>
-        <button id="saveIdentityBtn" class="btn primary">Simpan Identitas</button>
-      </div>
-    </section>
+        <button id="saveIdentityBtn" class="btn primary full">Simpan Identitas</button>
+        <p class="small-note">Kelas tersedia sampai <strong>VII G</strong> sesuai permintaan.</p>
+      </section>
 
-    <nav class="tabs" aria-label="Navigasi modul">
-      <button data-target="materi" class="active">1. Konsep</button>
-      <button data-target="eksplorasi">2. Eksplorasi</button>
-      <button data-target="senilai">3. Senilai</button>
-      <button data-target="banding">4. Bandingkan</button>
-      <button data-target="kuis">5. Kuis</button>
-    </nav>
+      <section class="progress-box">
+        <div class="section-title">Progress Belajar</div>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="progressText" class="progress-text">Halaman 1 dari 8</div>
+      </section>
 
-    <section id="materi" class="module card">
-      <h2>1. Mengenal Bilangan Rasional</h2>
-      <div class="grid3">
-        <article class="mini-card"><h3>Bilangan rasional</h3><p>Dapat ditulis sebagai <b>a/b</b>, dengan a dan b bilangan bulat dan b ≠ 0.</p></article>
-        <article class="mini-card"><h3>Pembilang</h3><p>Menunjukkan banyak bagian yang sedang diperhatikan.</p></article>
-        <article class="mini-card"><h3>Penyebut</h3><p>Menunjukkan banyak bagian sama besar yang membentuk satu keseluruhan.</p></article>
-      </div>
-      <div class="note">Konteks Gorontalo: jika 3 dari 4 bagian hasil tangkapan ikan telah terjual, maka bagian yang terjual adalah <b>3/4</b>.</div>
-    </section>
+      <nav class="menu">
+        <button class="nav-btn active" data-page="page1">1. Konsep Rasional</button>
+        <button class="nav-btn" data-page="page2">2. LKPD Pertemuan 1</button>
+        <button class="nav-btn" data-page="page3">3. Pecahan ↔ Desimal</button>
+        <button class="nav-btn" data-page="page4">4. LKPD Pertemuan 2</button>
+        <button class="nav-btn" data-page="page5">5. Garis Bilangan</button>
+        <button class="nav-btn" data-page="page6">6. LKPD Pertemuan 3</button>
+        <button class="nav-btn" data-page="page7">7. Membandingkan</button>
+        <button class="nav-btn" data-page="page8">8. LKPD Pertemuan 4</button>
+      </nav>
+    </aside>
 
-    <section id="eksplorasi" class="module card">
-      <h2>2. Laboratorium Pecahan</h2>
-      <div class="two-col">
-        <div class="controls">
-          <label>Pembilang <b id="numValue">3</b><input id="numSlider" type="range" min="0" max="4" value="3" /></label>
-          <label>Penyebut <b id="denValue">4</b><input id="denSlider" type="range" min="2" max="10" value="4" /></label>
-          <button id="randomFractionBtn" class="btn">Acak Pecahan</button>
+    <section class="content">
+      <article class="page active" id="page1" data-title="Konsep Bilangan Rasional">
+        <div class="page-hero">
+          <div>
+            <div class="pill-row">
+              <span class="pill blue">LKPD Matematika Kelas VII</span>
+              <span class="pill green">Materi: Bilangan Rasional</span>
+              <span class="pill peach">Pertemuan 1</span>
+            </div>
+            <h2>1. Konsep Bilangan Rasional</h2>
+          </div>
         </div>
-        <div>
-          <div class="big-fraction" id="fractionLabel">3/4</div>
-          <div id="fractionBar" class="fraction-bar"></div>
-          <div id="fractionFeedback" class="feedback"></div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card green">
+            <h3>Tujuan Pembelajaran</h3>
+            <ol class="list-numbered">
+              <li>Menjelaskan pengertian bilangan rasional.</li>
+              <li>Mengenali berbagai bentuk bilangan rasional.</li>
+              <li>Mengidentifikasi contoh bilangan rasional dalam kehidupan sehari-hari.</li>
+            </ol>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>Pengertian Bilangan Rasional</h3>
+            <p>Bilangan rasional adalah bilangan yang dapat dinyatakan dalam bentuk:</p>
+            <div class="formula-box">
+              <span class="vfrac large"><span class="top">a</span><span class="bottom">b</span></span>
+            </div>
+            <p>dengan <strong>a</strong> dan <strong>b</strong> bilangan bulat serta <strong>b ≠ 0</strong>.</p>
+          </section>
         </div>
-      </div>
-    </section>
 
-    <section id="senilai" class="module card">
-      <h2>3. Pecahan Senilai</h2>
-      <p>Mulai dari <b>2/3</b>, lalu kalikan pembilang dan penyebut dengan faktor yang sama.</p>
-      <div class="equiv-row"><span>2/3</span><span>=</span><strong id="equivResult">4/6</strong></div>
-      <div class="choice-row" id="multiplierChoices"></div>
-      <div id="equivFeedback" class="feedback">2/3 × 2/2 = 4/6. Nilainya tetap sama karena dikalikan dengan 1.</div>
-    </section>
+        <section class="soft-card peach">
+          <h3>Bentuk-Bentuk Bilangan Rasional</h3>
+          <div class="grid five-col">
+            <div class="mini-pill-card blue">
+              <h4>Bilangan Bulat</h4>
+              <p>Contoh: <strong>3</strong></p>
+            </div>
+            <div class="mini-pill-card green">
+              <h4>Pecahan Biasa</h4>
+              <p>Contoh: <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span></p>
+            </div>
+            <div class="mini-pill-card peach">
+              <h4>Pecahan Campuran</h4>
+              <p>Contoh: 2 <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span></p>
+            </div>
+            <div class="mini-pill-card blue">
+              <h4>Desimal Berhenti</h4>
+              <p>Contoh: <strong>0,75</strong></p>
+            </div>
+            <div class="mini-pill-card green">
+              <h4>Desimal Berulang</h4>
+              <p>Contoh: <strong>0,333…</strong></p>
+            </div>
+          </div>
+        </section>
 
-    <section id="banding" class="module card">
-      <h2>4. Bandingkan Pecahan</h2>
-      <div class="compare-grid">
-        <div><div class="big-fraction" id="leftFraction">3/4</div><div id="leftBar" class="fraction-bar"></div></div>
-        <div class="compare-symbol" id="compareSymbol">?</div>
-        <div><div class="big-fraction" id="rightFraction">2/3</div><div id="rightBar" class="fraction-bar"></div></div>
-      </div>
-      <div class="choice-row"><button class="compareBtn" data-choice="<">&lt;</button><button class="compareBtn" data-choice="=">=</button><button class="compareBtn" data-choice=">">&gt;</button></div>
-      <div id="compareFeedback" class="feedback">Amati model visual lalu pilih hubungan kedua pecahan.</div>
-      <button id="newComparisonBtn" class="btn">Soal Baru</button>
-    </section>
+        <div class="grid two-col-equal">
+          <section class="soft-card blue">
+            <h3>Makna Pecahan</h3>
+            <p>Pecahan menunjukkan bagian dari suatu keseluruhan.</p>
+            <div class="context-box">
+              <div class="fake-pizza"></div>
+              <div>
+                <p>Pizza dibagi menjadi 4 bagian sama. Ada 3 bagian diarsir.</p>
+                <p>Jadi, bagian pizza yang dimakan adalah <strong><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span></strong>.</p>
+              </div>
+            </div>
+          </section>
 
-    <section id="kuis" class="module card">
-      <h2>5. Kuis Formatif</h2>
-      <div id="quizArea">
-        <div class="quiz-meta"><span id="quizCounter"></span><strong id="quizScore">Skor: 0</strong></div>
-        <h3 id="quizQuestion"></h3>
-        <div id="quizOptions" class="quiz-options"></div>
-        <div id="quizFeedback" class="feedback hidden"></div>
-        <div class="actions"><button id="checkQuizBtn" class="btn primary">Periksa Jawaban</button><button id="nextQuizBtn" class="btn hidden">Soal Berikutnya</button></div>
-      </div>
-      <div id="quizResult" class="result hidden"></div>
+          <section class="soft-card green">
+            <h3>Contoh dalam Kehidupan Sehari-hari</h3>
+            <div class="example-list">
+              <div><span class="tag blue"><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> liter air</span> = 0,5 liter</div>
+              <div><span class="tag peach">1,5 kg buah</span> = 1 <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> kg</div>
+              <div><span class="tag red">Diskon 25%</span> = <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span> harga awal</div>
+              <div><span class="tag blue">Suhu −2,5°C</span> berada di bawah nol.</div>
+            </div>
+          </section>
+        </div>
+
+        <section class="summary-box">
+          <h3>Kesimpulan</h3>
+          <p>Bilangan rasional dapat ditulis dalam bentuk pecahan, desimal, atau bilangan bulat dan sering digunakan dalam kehidupan sehari-hari.</p>
+        </section>
+      </article>
+
+      <article class="page" id="page2" data-title="LKPD Pertemuan 1">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 1</span>
+          </div>
+          <h2>1. Konsep Bilangan Rasional (LKPD)</h2>
+        </div>
+
+        <section class="soft-card green">
+          <h3>Tujuan Pembelajaran</h3>
+          <ol class="list-numbered short">
+            <li>Mengidentifikasi bilangan rasional.</li>
+            <li>Mengenali bentuk pecahan, bilangan bulat, dan desimal sebagai bilangan rasional.</li>
+          </ol>
+        </section>
+
+        <div class="grid page-grid-lkpd">
+          <section class="soft-card peach span2">
+            <h3>A. Jawaban Pendek</h3>
+            <div class="qa-list">
+              <label><span>1. Apa yang dimaksud dengan bilangan rasional?</span><textarea class="free-answer" data-item="p1_a1"></textarea></label>
+              <label><span>2. Tuliskan tiga contoh bilangan rasional.</span><textarea class="free-answer" data-item="p1_a2"></textarea></label>
+              <label><span>3. Mengapa bilangan 4 termasuk bilangan rasional?</span><textarea class="free-answer" data-item="p1_a3"></textarea></label>
+            </div>
+            <p class="small-note">Jawaban tersimpan otomatis, tetapi dinilai guru secara kualitatif.</p>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>B. Benar atau Salah</h3>
+            <div class="tf-items" id="tfP1"></div>
+            <button class="btn primary" data-check="tfP1">Periksa B/S</button>
+            <div class="feedback" id="fb-tfP1">Pilih B atau S untuk setiap pernyataan.</div>
+          </section>
+
+          <section class="soft-card green">
+            <h3>C. Pilihan Kategori</h3>
+            <p>Masukkan bilangan ke kategori yang tepat dengan mengetik/menempel opsinya.</p>
+            <div class="chips-row static">
+              <span class="chip">1/2</span><span class="chip">3</span><span class="chip">0,25</span><span class="chip">2 1/2</span><span class="chip">−3/4</span><span class="chip">1,5</span>
+            </div>
+            <div class="category-grid">
+              <label>Bilangan Bulat<input data-key="kat-bulat" placeholder="contoh: 3" /></label>
+              <label>Pecahan Biasa<input data-key="kat-biasa" placeholder="contoh: 1/2; -3/4" /></label>
+              <label>Pecahan Campuran<input data-key="kat-campuran" placeholder="contoh: 2 1/2" /></label>
+              <label>Desimal<input data-key="kat-desimal" placeholder="contoh: 0,25; 1,5" /></label>
+            </div>
+            <button class="btn primary" id="checkKategoriP1">Periksa Kategori</button>
+            <div class="feedback" id="fb-kategoriP1">Kerjakan pengelompokan lalu klik periksa.</div>
+          </section>
+
+          <section class="soft-card peach span2">
+            <h3>D. Tantangan STEM Sederhana</h3>
+            <p>Dalam kegiatan memasak, Rani membutuhkan <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> liter susu, 0,25 kg gula, dan 2 buah telur.</p>
+            <div class="qa-list short-gap">
+              <label><span>1. Bilangan mana yang termasuk pecahan?</span><input class="short-answer" data-correct="1/2,setengah,1⁄2" data-target="p1stem1" /></label>
+              <label><span>2. Bilangan mana yang berbentuk desimal?</span><input class="short-answer" data-correct="0,25,0.25" data-target="p1stem2" /></label>
+              <label><span>3. Jelaskan mengapa semua bilangan tersebut termasuk bilangan rasional.</span><textarea class="free-answer" data-item="p1_stem3"></textarea></label>
+            </div>
+            <button class="btn primary" id="checkStemP1">Periksa Tantangan STEM</button>
+            <div class="feedback" id="fb-stemP1">Jawaban nomor 1 dan 2 dapat diperiksa otomatis.</div>
+          </section>
+        </div>
+      </article>
+
+      <article class="page" id="page3" data-title="Mengubah Pecahan ke Desimal dan Sebaliknya">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 2</span>
+          </div>
+          <h2>2. Mengubah Pecahan ke Desimal dan Sebaliknya</h2>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card green">
+            <h3>Tujuan Pembelajaran</h3>
+            <ol class="list-numbered">
+              <li>Mengubah pecahan menjadi bentuk desimal.</li>
+              <li>Mengubah bilangan desimal menjadi bentuk pecahan.</li>
+              <li>Menjelaskan hubungan pecahan dan desimal.</li>
+            </ol>
+          </section>
+
+          <section class="soft-card peach">
+            <h3>A. Mengubah Pecahan ke Desimal</h3>
+            <p>Pecahan diubah ke bentuk desimal dengan membagi pembilang dengan penyebut.</p>
+            <div class="formula-row">
+              <span class="formula-tag">Pecahan <span class="vfrac"><span class="top">a</span><span class="bottom">b</span></span></span>
+              <span class="arrow">→</span>
+              <span class="formula-tag">Desimal = a ÷ b</span>
+            </div>
+            <div class="grid four-col examples-compact">
+              <div class="mini-pill-card blue"><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = 0,5</div>
+              <div class="mini-pill-card green"><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> = 0,75</div>
+              <div class="mini-pill-card peach"><span class="vfrac"><span class="top">1</span><span class="bottom">5</span></span> = 0,2</div>
+              <div class="mini-pill-card yellow"><span class="vfrac"><span class="top">7</span><span class="bottom">10</span></span> = 0,7</div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card blue">
+            <h3>B. Mengubah Desimal ke Pecahan</h3>
+            <p>Bilangan desimal dapat ditulis sebagai pecahan berpenyebut 10, 100, atau 1000, kemudian disederhanakan.</p>
+            <div class="grid four-col examples-compact">
+              <div class="mini-pill-card blue">0,5 = <span class="vfrac"><span class="top">5</span><span class="bottom">10</span></span> = <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span></div>
+              <div class="mini-pill-card green">0,25 = <span class="vfrac"><span class="top">25</span><span class="bottom">100</span></span> = <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span></div>
+              <div class="mini-pill-card peach">0,75 = <span class="vfrac"><span class="top">75</span><span class="bottom">100</span></span> = <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span></div>
+              <div class="mini-pill-card yellow">0,2 = <span class="vfrac"><span class="top">2</span><span class="bottom">10</span></span> = <span class="vfrac"><span class="top">1</span><span class="bottom">5</span></span></div>
+            </div>
+          </section>
+
+          <section class="soft-card purple">
+            <h3>C. Hubungan Pecahan dan Desimal</h3>
+            <p>Pecahan dan desimal adalah dua bentuk berbeda yang menyatakan nilai yang sama.</p>
+            <div class="grid three-col examples-compact">
+              <div class="mini-pill-card blue"><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = 0,5</div>
+              <div class="mini-pill-card green"><span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span> = 0,25</div>
+              <div class="mini-pill-card peach"><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> = 0,75</div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card peach">
+            <h3>Cara Mengubah dengan Mudah</h3>
+            <div class="grid two-col-equal">
+              <div>
+                <h4>Pecahan ke Desimal</h4>
+                <ol class="list-numbered short">
+                  <li>Bagi pembilang dengan penyebut.</li>
+                  <li>Lakukan pembagian.</li>
+                  <li>Hasilnya adalah bilangan desimal.</li>
+                </ol>
+              </div>
+              <div>
+                <h4>Desimal ke Pecahan</h4>
+                <ol class="list-numbered short">
+                  <li>Tulis desimal sebagai pecahan berpenyebut 10, 100, atau 1000.</li>
+                  <li>Sederhanakan ke bentuk paling sederhana.</li>
+                </ol>
+              </div>
+            </div>
+          </section>
+
+          <section class="soft-card green">
+            <h3>Contoh Penggunaan Sehari-hari</h3>
+            <div class="example-list">
+              <div>0,75 liter air = <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> liter</div>
+              <div><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> bagian cokelat</div>
+              <div>1,25 kilogram buah = 1 <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span> kg</div>
+              <div>0,2 liter jus = <span class="vfrac"><span class="top">1</span><span class="bottom">5</span></span> liter</div>
+            </div>
+          </section>
+        </div>
+
+        <section class="summary-box">
+          <h3>Kesimpulan</h3>
+          <ul class="bullet-clean">
+            <li>Pecahan dapat diubah menjadi desimal dengan membagi pembilang dengan penyebut.</li>
+            <li>Desimal dapat diubah menjadi pecahan berpenyebut 10, 100, atau 1000 lalu disederhanakan.</li>
+            <li>Pecahan dan desimal menyatakan nilai yang sama.</li>
+          </ul>
+        </section>
+      </article>
+
+      <article class="page" id="page4" data-title="LKPD Pertemuan 2">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 2</span>
+          </div>
+          <h2>2. Mengubah Pecahan ke Desimal dan Sebaliknya (LKPD)</h2>
+        </div>
+
+        <section class="soft-card green">
+          <h3>Tujuan Pembelajaran</h3>
+          <div class="goal-pair">
+            <div>1. Mengubah pecahan menjadi desimal.</div>
+            <div>2. Mengubah desimal menjadi pecahan paling sederhana.</div>
+          </div>
+        </section>
+
+        <div class="grid page-grid-p2">
+          <section class="soft-card peach">
+            <h3>A. Pecahan ke Desimal</h3>
+            <div class="math-list" id="fracToDec"></div>
+            <button class="btn primary" id="checkFracToDec">Periksa Bagian A</button>
+            <div class="feedback" id="fb-fracToDec"></div>
+          </section>
+
+          <section class="soft-card green">
+            <h3>B. Desimal ke Pecahan</h3>
+            <div class="math-list" id="decToFrac"></div>
+            <button class="btn primary" id="checkDecToFrac">Periksa Bagian B</button>
+            <div class="feedback" id="fb-decToFrac"></div>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>C. Mencocokkan</h3>
+            <p>Cocokkan pecahan dengan desimal yang sesuai dengan memilih pasangan nomor.</p>
+            <div class="matching-wrap">
+              <div class="match-col" id="matchFracCol"></div>
+              <div class="match-col" id="matchDecCol"></div>
+            </div>
+            <button class="btn primary" id="checkMatchingP2">Periksa Pencocokan</button>
+            <div class="feedback" id="fb-matchingP2"></div>
+          </section>
+
+          <section class="soft-card peach">
+            <h3>D. Tantangan STEM</h3>
+            <p>Sebuah botol berisi 1 liter air. Dina meminum 0,5 liter air.</p>
+            <div class="qa-list short-gap">
+              <label><span>1. Ubahlah 0,5 menjadi pecahan.</span><input class="short-answer" data-correct="1/2,setengah,1⁄2" data-target="p2stem1" /></label>
+              <label><span>2. Tentukan bagian air yang telah diminum.</span><input class="short-answer" data-correct="1/2,setengah,1⁄2" data-target="p2stem2" /></label>
+              <label><span>3. Gambarkan/ceritakan bagian botol yang telah diminum.</span><textarea class="free-answer" data-item="p2_stem3"></textarea></label>
+            </div>
+            <button class="btn primary" id="checkStemP2">Periksa Tantangan STEM</button>
+            <div class="feedback" id="fb-stemP2"></div>
+          </section>
+        </div>
+      </article>
+
+      <article class="page" id="page5" data-title="Letak Bilangan Rasional pada Garis Bilangan">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 3</span>
+          </div>
+          <h2>3. Letak Bilangan Rasional pada Garis Bilangan</h2>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card green">
+            <h3>Tujuan Pembelajaran</h3>
+            <ol class="list-numbered">
+              <li>Menentukan letak bilangan rasional pada garis bilangan.</li>
+              <li>Menentukan bilangan rasional di antara dua bilangan bulat.</li>
+              <li>Memahami hubungan posisi bilangan dengan besar nilainya.</li>
+            </ol>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>Garis Bilangan</h3>
+            <ul class="bullet-clean">
+              <li>Semakin ke kanan, nilainya semakin besar.</li>
+              <li>Semakin ke kiri, nilainya semakin kecil.</li>
+              <li>Bilangan 0 berada di antara bilangan negatif dan positif.</li>
+            </ul>
+            <div class="inline-numberline mini">
+              <span>-2</span><span>-1</span><span>0</span><span>1</span><span>2</span><span>3</span>
+            </div>
+          </section>
+        </div>
+
+        <section class="soft-card peach">
+          <h3>Bilangan Rasional pada Garis Bilangan</h3>
+          <div class="grid four-col examples-compact">
+            <div class="mini-pill-card blue"><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = 0,5<br>Terletak di tengah antara 0 dan 1.</div>
+            <div class="mini-pill-card green">1 <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = 1,5<br>Terletak di tengah antara 1 dan 2.</div>
+            <div class="mini-pill-card peach">−<span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = −0,5<br>Terletak di tengah antara −1 dan 0.</div>
+            <div class="mini-pill-card yellow"><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> = 0,75<br>Terletak di antara 0 dan 1.</div>
+          </div>
+          <div class="numberline-demo">
+            <div class="axis"></div>
+            <span class="mark" style="left:10%">-2</span>
+            <span class="mark" style="left:26%">-1</span>
+            <span class="mark pink" style="left:34%">-0,5</span>
+            <span class="mark" style="left:42%">0</span>
+            <span class="mark blue" style="left:50%">0,5</span>
+            <span class="mark orange" style="left:58%">0,75</span>
+            <span class="mark" style="left:66%">1</span>
+            <span class="mark green" style="left:74%">1,5</span>
+            <span class="mark" style="left:82%">2</span>
+            <span class="mark" style="left:94%">3</span>
+          </div>
+        </section>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card blue">
+            <h3>Cara Menentukan Letak Pecahan</h3>
+            <ol class="list-numbered short">
+              <li>Bagi ruas garis bilangan menjadi beberapa bagian sama besar sesuai penyebut pecahan.</li>
+              <li>Hitung posisi pecahan dari nol.</li>
+              <li>Tandai titiknya pada garis bilangan.</li>
+            </ol>
+          </section>
+
+          <section class="soft-card green">
+            <h3>Bilangan di Antara Dua Bilangan Bulat</h3>
+            <p>Di antara dua bilangan bulat selalu terdapat banyak bilangan rasional.</p>
+            <p>Contoh: di antara 2 dan 3 terdapat 2,1; 2,25; 2,5; 2,75; 2,9.</p>
+          </section>
+        </div>
+
+        <section class="summary-box">
+          <h3>Kesimpulan</h3>
+          <p>Bilangan rasional dapat diletakkan pada garis bilangan. Semakin ke kanan nilainya semakin besar, semakin ke kiri nilainya semakin kecil.</p>
+        </section>
+      </article>
+
+      <article class="page" id="page6" data-title="LKPD Pertemuan 3">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 3</span>
+          </div>
+          <h2>3. Letak Bilangan Rasional pada Garis Bilangan (LKPD)</h2>
+        </div>
+
+        <div class="grid page-grid-lkpd3">
+          <section class="soft-card blue span2">
+            <h3>A. Menentukan Letak</h3>
+            <p>Pada garis bilangan berikut, tempatkan bilangan: <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span>, 1, 1,5, <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span>, dan 1 <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span>.</p>
+            <div class="line-task-grid">
+              <label><span><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> =</span><input class="short-answer" data-correct="0,5,0.5" data-target="p3a1" placeholder="tulis posisi" /></label>
+              <label><span>1 =</span><input class="short-answer" data-correct="1" data-target="p3a2" /></label>
+              <label><span>1,5 =</span><input class="short-answer" data-correct="1,5,1.5" data-target="p3a3" /></label>
+              <label><span><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> =</span><input class="short-answer" data-correct="0,75,0.75" data-target="p3a4" /></label>
+              <label><span>1 <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> =</span><input class="short-answer" data-correct="1,75,1.75" data-target="p3a5" /></label>
+            </div>
+            <button class="btn primary" id="checkP3A">Periksa Bagian A</button>
+            <div class="feedback" id="fb-p3a"></div>
+          </section>
+
+          <section class="soft-card peach span2">
+            <h3>B. Bilangan di Antara Dua Bilangan Bulat</h3>
+            <div class="between-grid">
+              <label>Antara 0 dan 1<input class="short-answer" data-correct="0,5,0.5,1/2" data-target="p3b1" /></label>
+              <label>Antara 1 dan 2<input class="short-answer" data-correct="1,5,1.5,3/2" data-target="p3b2" /></label>
+              <label>Antara −1 dan 0<input class="short-answer" data-correct="-0,5,-0.5,-1/2" data-target="p3b3" /></label>
+              <label>Antara 2 dan 3<input class="short-answer" data-correct="2,5,2.5,5/2" data-target="p3b4" /></label>
+            </div>
+            <button class="btn primary" id="checkP3B">Periksa Bagian B</button>
+            <div class="feedback" id="fb-p3b"></div>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>C. Mencocokkan</h3>
+            <div class="match-simple">
+              <div class="match-row"><span>0,5</span><select data-match="p3c1"><option value="">Pilih</option><option value="tengah antara −1 dan 0">Tengah antara −1 dan 0</option><option value="tengah antara 0 dan 1">Tengah antara 0 dan 1</option><option value="tengah antara 1 dan 2">Tengah antara 1 dan 2</option><option value="tengah antara 2 dan 3">Tengah antara 2 dan 3</option></select></div>
+              <div class="match-row"><span>1,5</span><select data-match="p3c2"><option value="">Pilih</option><option value="tengah antara −1 dan 0">Tengah antara −1 dan 0</option><option value="tengah antara 0 dan 1">Tengah antara 0 dan 1</option><option value="tengah antara 1 dan 2">Tengah antara 1 dan 2</option><option value="tengah antara 2 dan 3">Tengah antara 2 dan 3</option></select></div>
+              <div class="match-row"><span>−0,5</span><select data-match="p3c3"><option value="">Pilih</option><option value="tengah antara −1 dan 0">Tengah antara −1 dan 0</option><option value="tengah antara 0 dan 1">Tengah antara 0 dan 1</option><option value="tengah antara 1 dan 2">Tengah antara 1 dan 2</option><option value="tengah antara 2 dan 3">Tengah antara 2 dan 3</option></select></div>
+              <div class="match-row"><span>2,5</span><select data-match="p3c4"><option value="">Pilih</option><option value="tengah antara −1 dan 0">Tengah antara −1 dan 0</option><option value="tengah antara 0 dan 1">Tengah antara 0 dan 1</option><option value="tengah antara 1 dan 2">Tengah antara 1 dan 2</option><option value="tengah antara 2 dan 3">Tengah antara 2 dan 3</option></select></div>
+            </div>
+            <button class="btn primary" id="checkP3C">Periksa Bagian C</button>
+            <div class="feedback" id="fb-p3c"></div>
+          </section>
+
+          <section class="soft-card green">
+            <h3>D. Tantangan STEM</h3>
+            <p>Sebuah robot bergerak pada garis bilangan dari 0 ke <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span>, lalu ke 1,5, kemudian ke 2 <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span>.</p>
+            <label>Bilangan manakah yang paling jauh ke kanan?
+              <input class="short-answer" data-correct="2 1/4,2,25,2.25,2¼" data-target="p3d1" />
+            </label>
+            <label>Mengapa bilangan tersebut paling besar?
+              <textarea class="free-answer" data-item="p3_d2"></textarea>
+            </label>
+            <button class="btn primary" id="checkP3D">Periksa Bagian D</button>
+            <div class="feedback" id="fb-p3d"></div>
+          </section>
+        </div>
+      </article>
+
+      <article class="page" id="page7" data-title="Membandingkan dan Mengurutkan Bilangan Rasional">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 4</span>
+          </div>
+          <h2>4. Membandingkan dan Mengurutkan Bilangan Rasional</h2>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card green">
+            <h3>Tujuan Pembelajaran</h3>
+            <ol class="list-numbered">
+              <li>Membandingkan dua bilangan rasional.</li>
+              <li>Menggunakan simbol &lt;, &gt;, = dengan tepat.</li>
+              <li>Mengurutkan pecahan dan desimal dari yang terkecil atau terbesar.</li>
+            </ol>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>Membandingkan Bilangan Rasional</h3>
+            <div class="grid three-col examples-compact">
+              <div class="mini-pill-card peach">0,5 &lt; 0,75</div>
+              <div class="mini-pill-card green"><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> &gt; <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span></div>
+              <div class="mini-pill-card blue"><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = 0,5</div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card peach">
+            <h3>Cara Memudahkan</h3>
+            <p>Ubah kedua bilangan ke bentuk yang sama agar mudah dibandingkan.</p>
+            <p>Contoh: bandingkan <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> dan 0,75.</p>
+            <p><span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> = 0,5, sehingga 0,5 &lt; 0,75.</p>
+          </section>
+
+          <section class="soft-card green">
+            <h3>Pecahan Berpenyebut Sama</h3>
+            <p>Jika penyebut sama, cukup bandingkan pembilangnya.</p>
+            <p>Contoh: <span class="vfrac"><span class="top">3</span><span class="bottom">5</span></span> &lt; <span class="vfrac"><span class="top">4</span><span class="bottom">5</span></span> karena 3 &lt; 4.</p>
+          </section>
+        </div>
+
+        <div class="grid two-col-equal">
+          <section class="soft-card blue">
+            <h3>Garis Bilangan</h3>
+            <p>Pada garis bilangan, yang terletak di sebelah kiri lebih kecil daripada yang di sebelah kanan.</p>
+            <div class="inline-numberline large"><span>0</span><span>0,25</span><span>0,5</span><span>0,75</span><span>1</span></div>
+          </section>
+
+          <section class="soft-card purple">
+            <h3>Mengurutkan Bilangan Rasional</h3>
+            <p>Contoh: <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span>, 0,25, <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span>, 1.</p>
+            <p>Jika diubah ke desimal: 0,5; 0,25; 0,75; 1.</p>
+            <p><strong>Urutan dari yang terkecil:</strong> 0,25 &lt; <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> &lt; <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> &lt; 1.</p>
+          </section>
+        </div>
+
+        <section class="summary-box">
+          <h3>Kesimpulan</h3>
+          <p>Bilangan rasional dapat dibandingkan dengan simbol &lt;, &gt;, = dan dapat diurutkan dari yang terkecil atau terbesar.</p>
+        </section>
+      </article>
+
+      <article class="page" id="page8" data-title="LKPD Pertemuan 4">
+        <div class="page-hero">
+          <div class="pill-row">
+            <span class="pill blue">LKPD Matematika Kelas VII</span>
+            <span class="pill green">Materi: Bilangan Rasional</span>
+            <span class="pill peach">Pertemuan 4</span>
+          </div>
+          <h2>4. Membandingkan dan Mengurutkan Bilangan Rasional (LKPD)</h2>
+        </div>
+
+        <div class="grid page-grid-final">
+          <section class="soft-card peach">
+            <h3>A. Pilih Simbol yang Tepat</h3>
+            <div class="symbol-list" id="symbolList"></div>
+            <button class="btn primary" id="checkSymbols">Periksa Bagian A</button>
+            <div class="feedback" id="fb-symbols"></div>
+          </section>
+
+          <section class="soft-card blue">
+            <h3>B. Mengurutkan Bilangan</h3>
+            <div class="order-task">
+              <p>1. Urutkan: 0,5 ; 0,25 ; 0,75 ; 1</p>
+              <input data-order="o1" placeholder="contoh: 0,25 ; 0,5 ; 0,75 ; 1" />
+            </div>
+            <div class="order-task">
+              <p>2. Urutkan: <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> ; <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span> ; <span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span> ; 1</p>
+              <input data-order="o2" placeholder="contoh: 1/4 ; 1/2 ; 3/4 ; 1" />
+            </div>
+            <button class="btn primary" id="checkOrder">Periksa Bagian B</button>
+            <div class="feedback" id="fb-order"></div>
+          </section>
+
+          <section class="soft-card green">
+            <h3>C. Pilihan Kategori terhadap <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span></h3>
+            <div class="chips-row static">
+              <span class="chip">0,25</span><span class="chip"><span class="vfrac"><span class="top">3</span><span class="bottom">4</span></span></span><span class="chip">0,5</span><span class="chip"><span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span></span><span class="chip">0,8</span><span class="chip"><span class="vfrac"><span class="top">2</span><span class="bottom">5</span></span></span>
+            </div>
+            <div class="category-grid three">
+              <label>Kurang dari 1/2<input data-key="lessHalf" placeholder="contoh: 0,25; 1/4" /></label>
+              <label>Sama dengan 1/2<input data-key="equalHalf" placeholder="contoh: 0,5" /></label>
+              <label>Lebih dari 1/2<input data-key="moreHalf" placeholder="contoh: 3/4; 0,8" /></label>
+            </div>
+            <button class="btn primary" id="checkCatFinal">Periksa Bagian C</button>
+            <div class="feedback" id="fb-catFinal"></div>
+          </section>
+
+          <section class="soft-card peach span2">
+            <h3>D. Analisis Sederhana Berbasis STEM</h3>
+            <p>Tinggi tanaman: Andi = 0,75 meter; Budi = <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> meter; Citra = 0,6 meter; Dinda = <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span> meter.</p>
+            <div class="qa-list short-gap">
+              <label><span>1. Siapa yang paling tinggi?</span><input class="short-answer" data-correct="andi" data-target="p4stem1" /></label>
+              <label><span>2. Siapa yang paling pendek?</span><input class="short-answer" data-correct="dinda" data-target="p4stem2" /></label>
+              <label><span>3. Jelaskan caramu membandingkan tinggi tanaman tersebut.</span><textarea class="free-answer" data-item="p4_stem3"></textarea></label>
+            </div>
+            <button class="btn primary" id="checkStemP4D">Periksa Bagian D</button>
+            <div class="feedback" id="fb-stemP4D"></div>
+          </section>
+
+          <section class="soft-card blue span2">
+            <h3>E. Tantangan STEM</h3>
+            <p>Data penggunaan air: Kelompok A = <span class="vfrac"><span class="top">1</span><span class="bottom">2</span></span> liter; Kelompok B = 0,75 liter; Kelompok C = <span class="vfrac"><span class="top">1</span><span class="bottom">4</span></span> liter; Kelompok D = 0,6 liter.</p>
+            <div class="qa-list short-gap">
+              <label><span>1. Kelompok yang paling hemat?</span><input class="short-answer" data-correct="kelompok c|c" data-target="p4stemE1" /></label>
+              <label><span>2. Urutkan dari paling sedikit ke paling banyak.</span><input class="short-answer" data-correct="c-a-d-b|kelompok c - kelompok a - kelompok d - kelompok b|c, a, d, b|kelompok c, kelompok a, kelompok d, kelompok b" data-target="p4stemE2" /></label>
+              <label><span>3. Jelaskan bagaimana kamu membandingkan data tersebut.</span><textarea class="free-answer" data-item="p4_stemE3"></textarea></label>
+            </div>
+            <button class="btn primary" id="checkStemP4E">Periksa Bagian E</button>
+            <div class="feedback" id="fb-stemP4E"></div>
+          </section>
+        </div>
+
+        <div class="submit-area">
+          <button class="btn primary large" id="submitAllBtn">Simpan Hasil LKPD ke Google Sheet</button>
+          <div class="feedback" id="fb-submitAll">Pastikan identitas murid sudah diisi sebelum menyimpan hasil.</div>
+        </div>
+      </article>
     </section>
   </main>
-
-  <footer>MPI Bilangan Rasional • MTs Kelas VII • GitHub Pages + Google Apps Script</footer>
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/api.js"></script>
