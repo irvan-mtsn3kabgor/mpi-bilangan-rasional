@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0c4b3e" />
+  <title>Bilangan Rasional | Matematika Kelas VII MTs</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>Bilangan Rasional</strong>
+      <span>Matematika Kelas VII MTs • Fase D</span>
+    </div>
+    <div class="status" id="syncStatus">Mode offline</div>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">MPI Eksplorasi Modular</p>
+        <h1>Pecahan bisa dilihat, diubah, dan dibandingkan.</h1>
+        <p>Eksplorasi pecahan melalui model visual, pecahan senilai, perbandingan, dan kuis formatif.</p>
+      </div>
+      <div class="student-box">
+        <label>Nama murid
+          <input id="studentName" placeholder="Contoh: Siti Rahma" autocomplete="name" />
+        </label>
+        <label>Kelas
+          <input id="studentClass" placeholder="Contoh: VII A" />
+        </label>
+        <button id="saveIdentityBtn" class="btn primary">Simpan Identitas</button>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="Navigasi modul">
+      <button data-target="materi" class="active">1. Konsep</button>
+      <button data-target="eksplorasi">2. Eksplorasi</button>
+      <button data-target="senilai">3. Senilai</button>
+      <button data-target="banding">4. Bandingkan</button>
+      <button data-target="kuis">5. Kuis</button>
+    </nav>
+
+    <section id="materi" class="module card">
+      <h2>1. Mengenal Bilangan Rasional</h2>
+      <div class="grid3">
+        <article class="mini-card"><h3>Bilangan rasional</h3><p>Dapat ditulis sebagai <b>a/b</b>, dengan a dan b bilangan bulat dan b ≠ 0.</p></article>
+        <article class="mini-card"><h3>Pembilang</h3><p>Menunjukkan banyak bagian yang sedang diperhatikan.</p></article>
+        <article class="mini-card"><h3>Penyebut</h3><p>Menunjukkan banyak bagian sama besar yang membentuk satu keseluruhan.</p></article>
+      </div>
+      <div class="note">Konteks Gorontalo: jika 3 dari 4 bagian hasil tangkapan ikan telah terjual, maka bagian yang terjual adalah <b>3/4</b>.</div>
+    </section>
+
+    <section id="eksplorasi" class="module card">
+      <h2>2. Laboratorium Pecahan</h2>
+      <div class="two-col">
+        <div class="controls">
+          <label>Pembilang <b id="numValue">3</b><input id="numSlider" type="range" min="0" max="4" value="3" /></label>
+          <label>Penyebut <b id="denValue">4</b><input id="denSlider" type="range" min="2" max="10" value="4" /></label>
+          <button id="randomFractionBtn" class="btn">Acak Pecahan</button>
+        </div>
+        <div>
+          <div class="big-fraction" id="fractionLabel">3/4</div>
+          <div id="fractionBar" class="fraction-bar"></div>
+          <div id="fractionFeedback" class="feedback"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="senilai" class="module card">
+      <h2>3. Pecahan Senilai</h2>
+      <p>Mulai dari <b>2/3</b>, lalu kalikan pembilang dan penyebut dengan faktor yang sama.</p>
+      <div class="equiv-row"><span>2/3</span><span>=</span><strong id="equivResult">4/6</strong></div>
+      <div class="choice-row" id="multiplierChoices"></div>
+      <div id="equivFeedback" class="feedback">2/3 × 2/2 = 4/6. Nilainya tetap sama karena dikalikan dengan 1.</div>
+    </section>
+
+    <section id="banding" class="module card">
+      <h2>4. Bandingkan Pecahan</h2>
+      <div class="compare-grid">
+        <div><div class="big-fraction" id="leftFraction">3/4</div><div id="leftBar" class="fraction-bar"></div></div>
+        <div class="compare-symbol" id="compareSymbol">?</div>
+        <div><div class="big-fraction" id="rightFraction">2/3</div><div id="rightBar" class="fraction-bar"></div></div>
+      </div>
+      <div class="choice-row"><button class="compareBtn" data-choice="<">&lt;</button><button class="compareBtn" data-choice="=">=</button><button class="compareBtn" data-choice=">">&gt;</button></div>
+      <div id="compareFeedback" class="feedback">Amati model visual lalu pilih hubungan kedua pecahan.</div>
+      <button id="newComparisonBtn" class="btn">Soal Baru</button>
+    </section>
+
+    <section id="kuis" class="module card">
+      <h2>5. Kuis Formatif</h2>
+      <div id="quizArea">
+        <div class="quiz-meta"><span id="quizCounter"></span><strong id="quizScore">Skor: 0</strong></div>
+        <h3 id="quizQuestion"></h3>
+        <div id="quizOptions" class="quiz-options"></div>
+        <div id="quizFeedback" class="feedback hidden"></div>
+        <div class="actions"><button id="checkQuizBtn" class="btn primary">Periksa Jawaban</button><button id="nextQuizBtn" class="btn hidden">Soal Berikutnya</button></div>
+      </div>
+      <div id="quizResult" class="result hidden"></div>
+    </section>
+  </main>
+
+  <footer>MPI Bilangan Rasional • MTs Kelas VII • GitHub Pages + Google Apps Script</footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
